@@ -11,17 +11,21 @@ fi
 echo "🚀 Running ESLint and Prettier checks..."
 
 # --- Run ESLint (using npm script) ---
-echo "🧠 Checking with ESLint..."
+echo "Checking with ESLint..."
 if ! npm run lint; then
   echo "❌ ESLint failed. Please fix issues or run: npm run lint:fix"
   exit 1
+else
+ echo "✅ ESlint is Success."
 fi
 
 # --- Run Prettier check (using npm script) ---
-echo "🎨 Checking format with Prettier..."
+echo "Checking format with Prettier..."
 if ! npm run format:check; then
   echo "❌ Prettier check failed. Please run: npm run format"
   exit 1
+else
+  echo "✅ Prettier check failed. Please run: npm run format"
 fi
 
 echo "✅ ESLint and Prettier passed!"

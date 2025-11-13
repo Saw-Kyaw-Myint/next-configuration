@@ -1,5 +1,9 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
   "tailwindFunctions": ["clsx", "cva", "twMerge"],
   "singleQuote": true,
   "trailingComma": "es5",
@@ -9,7 +13,6 @@
   "printWidth": 100,
   "bracketSpacing": true,
   "jsxSingleQuote": false,
-  "jsxBracketSameLine": false,
   "semi": true,
   "importOrder": [
     "^react$",
