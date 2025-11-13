@@ -7,7 +7,7 @@ Install the following VSCode extensions:
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-Project settings are located in /.vscode/settings.json. Disable auto-format and enable the 'format on save' setting. Code formatting will still be performed automatically when the file is saved.
+Project settings are located in /.vscode/settings.json. Disable auto-save and enable the 'format on save' setting. Code formatting will still be performed automatically when the file is saved.
 
 ## Local environment setup
 
