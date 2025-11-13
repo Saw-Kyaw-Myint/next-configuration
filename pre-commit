@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# --- Constants ---
-ESLINT="npx lint"
-PRETTIER="npx format:check"
-
 # --- Get staged JS/TS/CSS/SCSS files ---
 files=$(git diff --cached --name-only --diff-filter=AMCR -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.css' '*.scss')
 
@@ -14,22 +10,17 @@ fi
 
 echo "🚀 Running ESLint and Prettier checks..."
 
-# --- Run ESLint (only on JS/TS files) ---
-js_files=$(echo "$files" | grep -E '\.(js|jsx|ts|tsx)$')
-if [ -n "$js_files" ]; then
-  echo "Checking JavaScript/TypeScript files with ESLint..."
-  if ! $ESLINT $js_files; then
-    echo "❌ ESLint failed. Please fix issues or run: npx eslint . --fix"
-    exit 1
-  fi
-else
-  echo "✅ No JS/TS files to lint."
+# --- Run ESLint (using npm script) ---
+echo "🧠 Checking with ESLint..."
+if ! npm run lint; then
+  echo "❌ ESLint failed. Please fix issues or run: npm run lint:fix"
+  exit 1
 fi
 
-# --- Run Prettier check (on all supported files) ---
+# --- Run Prettier check (using npm script) ---
 echo "🎨 Checking format with Prettier..."
-if ! $PRETTIER --check $files; then
-  echo "❌ Prettier check failed. Please run: npx prettier --write ."
+if ! npm run format:check; then
+  echo "❌ Prettier check failed. Please run: npm run format"
   exit 1
 fi
 
