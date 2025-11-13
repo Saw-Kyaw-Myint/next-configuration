@@ -1,4 +1,4 @@
-# metateam SMART WORLD
+# Metateam SMART WORLD
 
 ## VSCode Settings
 
