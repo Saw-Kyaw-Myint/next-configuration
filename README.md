@@ -41,6 +41,7 @@ $ npm i or npm ci
 ```
 
 ## Development Operations
+
 ### Starting the Development Server
 
 Run the following command in the `metateam-smart-world_node` container to start the development server ([http://localhost:3000](http://localhost:3000)).

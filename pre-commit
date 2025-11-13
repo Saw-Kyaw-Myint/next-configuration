@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# --- Block direct commits to develop ---
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ]; then
+  echo "❌ Direct commits to 'main' are not allowed. Use a another branch."
+  exit 1
+fi
+
 # --- Get staged JS/TS/CSS/SCSS files ---
 files=$(git diff --cached --name-only --diff-filter=AMCR -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.css' '*.scss')
 
