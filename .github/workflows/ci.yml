@@ -1,0 +1,68 @@
+name: Check Code
+
+on:
+  push:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+      - 'refactor/**'
+      - 'improvement/**'
+      - 'hotfix/**'
+  pull_request:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+      - 'refactor/**'
+      - 'improvement/**'
+      - 'hotfix/**'
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.16.0'
+          cache: 'npm'
+
+      # Step 3: Cache node_modules for faster installs
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 5: Run ESLint
+      - name: Run lint check
+        run: |
+          if ! npm run lint; then
+            echo "error:: ❌ ESLint found issues. Please fix them before committing."
+            exit 1
+          fi
+
+      # Step 6: Run Prettier check
+      - name: Run Prettier check
+        run: |
+          if ! npx prettier --check .; then
+            echo "error:: ❌ Prettier formatting issues detected. Run 'npm run format' to fix."
+            exit 1
+          fi
+
+      # Step 7: Build Next.js application
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
