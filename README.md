@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# COMJOU SMART WORLD
 
-## Getting Started
+## VSCode Settings
 
-First, run the development server:
+Install the following VSCode extensions:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+Project settings are located in /.vscode/settings.json. Disable auto-format and enable the 'format on save' setting. Code formatting will still be performed automatically when the file is saved.
+
+## Local environment setup
+
+Navigate to the project folder:
+
+```
+$ cd comjou_smart_world
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Docker setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+$ docker-compose build
+$ docker-compose up -d
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Node (npm) operations are performed from the `comjou-smart-world_node` container.
 
-## Learn More
+#### Connect to `comjou-smart-world_node` container
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+$ docker exec -it comjou-smart-world_node bash
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installing Packages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the following command in the `comjou-smart-world_node` container to install packages.
 
-## Deploy on Vercel
+```bash
+$ npm i or npm ci
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development Operations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Starting the Container
+
+```bash
+$ docker-compose up -d
+```
+
+### Stopping the Container
+
+```bash
+$ docker-compose down
+```
+
+### Starting the Development Server
+
+Run the following command in the `comjou-smart-world_node` container to start the development server ([http://localhost:3000](http://localhost:3000)).
+
+```bash
+$ npm run dev
+```
+
+### Building the Application
+
+Run the following command in the `comjou-smart-world_node` container to build the application.
+
+```bash
+$ npm run build
+```
+
+## Pre-Commit Setup:
+
+Enter Project Folder.
+
+Copy the pre-commit hook script to the Git hooks directory:
+
+```
+$ cp pre-commit .git/hooks/pre-commit
+```
+
+---
+
+## Steps to Run Before Each Git Commit
+
+Run ESLint to check code quality.:
+
+```
+$ npm run lint:format
+```
+
+Run Prettier to check code style:
+
+```
+$ npm run format
+```
