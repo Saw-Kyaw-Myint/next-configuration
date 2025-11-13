@@ -89,7 +89,7 @@ $ cp pre-commit .git/hooks/pre-commit
 Run ESLint to check code quality.:
 
 ```
-$ npm run lint:format
+$ npm run lint:fix
 ```
 
 Run Prettier to check code style:
