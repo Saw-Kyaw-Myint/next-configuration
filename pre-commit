@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # --- Block direct commits to develop ---
 branch=$(git rev-parse --abbrev-ref HEAD)
