@@ -1,4 +1,4 @@
-# COMJOU SMART WORLD
+# metateam SMART WORLD
 
 ## VSCode Settings
 
@@ -16,7 +16,7 @@ Project settings are located in /.vscode/settings.json. Disable auto-format and 
 Navigate to the project folder:
 
 ```
-$ cd comjou_smart_world
+$ cd xxxxx
 ```
 
 ### Docker setup
@@ -26,17 +26,17 @@ $ docker-compose build
 $ docker-compose up -d
 ```
 
-Node (npm) operations are performed from the `comjou-smart-world_node` container.
+Node (npm) operations are performed from the `metateam-smart-world_node` container.
 
-#### Connect to `comjou-smart-world_node` container
+#### Connect to `metateam-smart-world_node` container
 
 ```bash
-$ docker exec -it comjou-smart-world_node bash
+$ docker exec -it metateam-smart-world_node bash
 ```
 
 ### Installing Packages
 
-Run the following command in the `comjou-smart-world_node` container to install packages.
+Run the following command in the `metateam-smart-world_node` container to install packages.
 
 ```bash
 $ npm i or npm ci
@@ -58,7 +58,7 @@ $ docker-compose down
 
 ### Starting the Development Server
 
-Run the following command in the `comjou-smart-world_node` container to start the development server ([http://localhost:3000](http://localhost:3000)).
+Run the following command in the `metateam-smart-world_node` container to start the development server ([http://localhost:3000](http://localhost:3000)).
 
 ```bash
 $ npm run dev
@@ -66,7 +66,7 @@ $ npm run dev
 
 ### Building the Application
 
-Run the following command in the `comjou-smart-world_node` container to build the application.
+Run the following command in the `metateam-smart-world_node` container to build the application.
 
 ```bash
 $ npm run build
