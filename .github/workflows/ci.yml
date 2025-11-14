@@ -30,39 +30,43 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.16.0'
-          cache: 'npm'
+          cache: 'pnpm'
 
-      # Step 3: Install dependencies
+      # Step 3: Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Step 4: Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
-      # Step 4: Run ESLint
+      # Step 5: Run ESLint
       - name: Run lint check
         run: |
-          if ! npm run lint; then
+          if ! pnpm run lint; then
             echo "error:: ❌ ESLint found issues. Please fix them before committing."
             exit 1
           fi
 
-      # Step 5: Run Prettier check
+      # Step 6: Run Prettier check
       - name: Run Prettier check
         run: |
-          if ! npx prettier --check .; then
-            echo "error:: ❌ Prettier formatting issues detected. Run 'npm run format' to fix."
+          if ! pnpm exec prettier --check .; then
+            echo "error:: ❌ Prettier formatting issues detected. Run 'pnpm run format' to fix."
             exit 1
           fi
 
-      # Step 6: Build Next.js application
+      # Step 7: Build Next.js application
       - name: Build application
-        run: npm run build
+        run: pnpm run build
         env:
           CI: true
 
-      # Step 7: Cache node_modules for faster installs
-      - name: Cache node modules
+      # Step 8: Cache pnpm store for faster installs
+      - name: Cache pnpm store
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-pnpm-
