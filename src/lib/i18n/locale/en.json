@@ -1,0 +1,16 @@
+{
+  "app": {
+    "test" : "Get started by editing"
+  },
+  "validation": {
+    "required": "{attribute} is required.",
+    "min": "{attribute} must be at least {min} characters.",
+    "max": "{attribute} must be less than {max} characters.",
+    "invalid": "{attribute} is invalid"
+  },
+  "attributes": {
+    "email": "Email",
+    "password": "Password",
+    "username": "Username"
+  }
+}
