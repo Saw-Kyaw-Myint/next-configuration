@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import {getTranslations} from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations();
+
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
@@ -15,7 +18,7 @@ export default function Home() {
         />
         <ol className="list-inside list-decimal text-center font-mono text-sm/6 sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{' '}
+            {t('app.test')}{' '}
             <code className="rounded bg-black/[.05] px-1 py-0.5 font-mono font-semibold dark:bg-white/[.06]">
               src/app/page.tsx
             </code>

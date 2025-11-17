@@ -1,0 +1,17 @@
+{
+  "app": {
+    "test" : "テストーパジ"
+  },
+  "validation": {
+    "required": "{{attribute}}は必須です。",
+    "min": "{{attribute}}は{{min}}文字以上である必要があります。",
+    "max": "{{attribute}}は{{max}}文字以下である必要があります。",
+    "invalid": "有効な{{attribute}}を入力してください"
+  },
+
+  "attributes": {
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "username": "ユーザー名"
+  }
+}
