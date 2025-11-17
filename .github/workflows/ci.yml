@@ -1,5 +1,5 @@
 name: Check Code
- 
+
 on:
   push:
     branches:
@@ -15,55 +15,58 @@ on:
       - 'refactor/**'
       - 'improvement/**'
       - 'hotfix/**'
- 
+
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
- 
+
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
- 
-      # Step 2: Setup Node.js environment
+
+      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.16.0'
-          cache: 'npm'
- 
-      # Step 3: Install dependencies
+          cache: 'pnpm'    # ⭐ use pnpm cache
+
+      # Step 3: Install PNPM
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Step 4: Install dependencies
       - name: Install dependencies
-        run: npm ci
- 
-      # Step 4: Run ESLint
+        run: pnpm install
+
+      # Step 5: Run ESLint
       - name: Run lint check
         run: |
-          if ! npm run lint; then
-            echo "error:: ❌ ESLint found issues. Please fix them before committing."
+          if ! pnpm lint; then
+            echo "❌ ESLint found issues. Please fix them before committing."
             exit 1
           fi
- 
-      # Step 5: Run Prettier check
+
+      # Step 6: Run Prettier
       - name: Run Prettier check
         run: |
-          if ! npx prettier --check .; then
-            echo "error:: ❌ Prettier formatting issues detected. Run 'npm run format' to fix."
+          if ! pnpm prettier:check; then
+            echo "❌ Prettier formatting issues detected. Run 'pnpm format' to fix."
             exit 1
           fi
- 
-      # Step 6: Build Next.js application
+
+      # Step 7: Build app
       - name: Build application
-        run: npm run build
+        run: pnpm build
         env:
           CI: true
- 
-      # Step 7: Cache node_modules for faster installs
-      - name: Cache node modules
+
+      # Step 8: Cache pnpm store (optional but faster)
+      - name: Cache pnpm store
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
- 
+            ${{ runner.os }}-pnpm-
