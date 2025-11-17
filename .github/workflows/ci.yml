@@ -1,5 +1,5 @@
 name: Check Code
-
+ 
 on:
   push:
     branches:
@@ -15,58 +15,55 @@ on:
       - 'refactor/**'
       - 'improvement/**'
       - 'hotfix/**'
-
+ 
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
-
+ 
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
-
+ 
       # Step 2: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.16.0'
-          cache: 'pnpm'
-
-      # Step 3: Install pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      # Step 4: Install dependencies
+          cache: 'npm'
+ 
+      # Step 3: Install dependencies
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # Step 5: Run ESLint
+        run: npm ci
+ 
+      # Step 4: Run ESLint
       - name: Run lint check
         run: |
-          if ! pnpm run lint; then
+          if ! npm run lint; then
             echo "error:: ❌ ESLint found issues. Please fix them before committing."
             exit 1
           fi
-
-      # Step 6: Run Prettier check
+ 
+      # Step 5: Run Prettier check
       - name: Run Prettier check
         run: |
-          if ! pnpm exec prettier --check .; then
-            echo "error:: ❌ Prettier formatting issues detected. Run 'pnpm run format' to fix."
+          if ! npx prettier --check .; then
+            echo "error:: ❌ Prettier formatting issues detected. Run 'npm run format' to fix."
             exit 1
           fi
-
-      # Step 7: Build Next.js application
+ 
+      # Step 6: Build Next.js application
       - name: Build application
-        run: pnpm run build
+        run: npm run build
         env:
           CI: true
-
-      # Step 8: Cache pnpm store for faster installs
-      - name: Cache pnpm store
+ 
+      # Step 7: Cache node_modules for faster installs
+      - name: Cache node modules
         uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-
+            ${{ runner.os }}-node-
+ 
