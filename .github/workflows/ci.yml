@@ -50,7 +50,7 @@ jobs:
       # Step 6: Run Prettier
       - name: Run Prettier check
         run: |
-          if ! pnpm run prettier:check; then
+          if ! pnpm run format:check; then
             echo "❌ Prettier formatting issues detected. Run 'pnpm run format' to fix."
             exit 1
           fi
