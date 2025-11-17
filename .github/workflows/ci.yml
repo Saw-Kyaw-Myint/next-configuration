@@ -42,7 +42,7 @@ jobs:
       # Step 5: Run ESLint
       - name: Run lint check
         run: |
-          if ! pnpm lint; then
+          if ! pnpm  run lint; then
             echo "❌ ESLint found issues. Please fix them before committing."
             exit 1
           fi
@@ -50,14 +50,14 @@ jobs:
       # Step 6: Run Prettier
       - name: Run Prettier check
         run: |
-          if ! pnpm prettier:check; then
-            echo "❌ Prettier formatting issues detected. Run 'pnpm format' to fix."
+          if ! pnpm run prettier:check; then
+            echo "❌ Prettier formatting issues detected. Run 'pnpm run format' to fix."
             exit 1
           fi
 
       # Step 7: Build app
       - name: Build application
-        run: pnpm build
+        run: pnpm run build
         env:
           CI: true
 
