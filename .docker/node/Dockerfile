@@ -5,5 +5,5 @@ RUN usermod -u 1000 node && groupmod -g 1000 node
 RUN rm -rf /tmp/*
 WORKDIR /tmp/run
 RUN npm install -g pnpm
-RUN chown -R node:node /tmp/run
+RUN chown -R $USER:$USER /tmp/run
 USER node
